@@ -1,0 +1,51 @@
+// backend/proto/chat.proto
+
+syntax = "proto3";
+
+package secugenie.proto.chat;
+
+// -----------------------------------------------------------------------------
+// ChatService definition
+// -----------------------------------------------------------------------------
+//
+// ChatService exposes a single RPC, StreamChat, which takes a ChatRequest
+// and returns a stream of ChatResponse messages.  This supports token-by-token
+// or full-text streaming from both local and cloud LLMs.
+//
+// The generated Python and Dart code will let us hook into this service:
+//  - Python: implement ChatServiceServicer.stream_chat()
+//  - Dart: call ChatServiceClient(streamChat) and listen to the stream
+service ChatService {
+  // StreamChat streams back ChatResponse messages for a given ChatRequest.
+  // The server may send multiple messages (one per token) and then terminate
+  // with a final response containing the full_text.
+  rpc StreamChat (ChatRequest) returns (stream ChatResponse);
+}
+
+// -----------------------------------------------------------------------------
+// ChatRequest message
+// -----------------------------------------------------------------------------
+//
+// Sent by the client to initiate a chat.  Contains:
+//  - prompt: the user’s current question or instruction
+//  - history: optional list of previous messages (for context)
+//  - model: which LLM to invoke (e.g. "mistral-7b", "gpt-4")
+// -----------------------------------------------------------------------------
+message ChatRequest {
+  string prompt  = 1;            // The current user input
+  repeated string history = 2;   // Prior conversation turns (prompt/response)
+  string model   = 3;            // Model identifier to use for this call
+}
+
+// -----------------------------------------------------------------------------
+// ChatResponse message
+// -----------------------------------------------------------------------------
+//
+// Returned by the server as a stream.  Each message may contain:
+//  - token: a partial token (or group of tokens) to render immediately
+//  - final_text: the complete response text; set only on the final message
+// -----------------------------------------------------------------------------
+message ChatResponse {
+  string token      = 1; // Individual token(s) as they become available
+  string final_text = 2; // Full answer text; only populated on the last message
+}
