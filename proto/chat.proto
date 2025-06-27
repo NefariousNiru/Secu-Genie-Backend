@@ -37,6 +37,13 @@ message ChatRequest {
   string model   = 3;            // Model identifier to use for this call
 }
 
+message Citation {
+  string chunk_id  = 1;
+  string source    = 2;  // e.g. "/docs/report.pdf"
+  string snippet   = 3;  // the chunk text
+  float  score     = 4;  // similarity score
+}
+
 // -----------------------------------------------------------------------------
 // ChatResponse message
 // -----------------------------------------------------------------------------
@@ -48,4 +55,5 @@ message ChatRequest {
 message ChatResponse {
   string token      = 1; // Individual token(s) as they become available
   string final_text = 2; // Full answer text; only populated on the last message
+  repeated Citation cite   = 3;
 }

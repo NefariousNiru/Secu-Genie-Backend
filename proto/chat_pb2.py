@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nchat.proto\x12\x14secugenie.proto.chat\"=\n\x0b\x43hatRequest\x12\x0e\n\x06prompt\x18\x01 \x01(\t\x12\x0f\n\x07history\x18\x02 \x03(\t\x12\r\n\x05model\x18\x03 \x01(\t\"1\n\x0c\x43hatResponse\x12\r\n\x05token\x18\x01 \x01(\t\x12\x12\n\nfinal_text\x18\x02 \x01(\t2d\n\x0b\x43hatService\x12U\n\nStreamChat\x12!.secugenie.proto.chat.ChatRequest\x1a\".secugenie.proto.chat.ChatResponse0\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nchat.proto\x12\x14secugenie.proto.chat\"=\n\x0b\x43hatRequest\x12\x0e\n\x06prompt\x18\x01 \x01(\t\x12\x0f\n\x07history\x18\x02 \x03(\t\x12\r\n\x05model\x18\x03 \x01(\t\"L\n\x08\x43itation\x12\x10\n\x08\x63hunk_id\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\x0f\n\x07snippet\x18\x03 \x01(\t\x12\r\n\x05score\x18\x04 \x01(\x02\"_\n\x0c\x43hatResponse\x12\r\n\x05token\x18\x01 \x01(\t\x12\x12\n\nfinal_text\x18\x02 \x01(\t\x12,\n\x04\x63ite\x18\x03 \x03(\x0b\x32\x1e.secugenie.proto.chat.Citation2d\n\x0b\x43hatService\x12U\n\nStreamChat\x12!.secugenie.proto.chat.ChatRequest\x1a\".secugenie.proto.chat.ChatResponse0\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,8 +33,10 @@ if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_CHATREQUEST']._serialized_start=36
   _globals['_CHATREQUEST']._serialized_end=97
-  _globals['_CHATRESPONSE']._serialized_start=99
-  _globals['_CHATRESPONSE']._serialized_end=148
-  _globals['_CHATSERVICE']._serialized_start=150
-  _globals['_CHATSERVICE']._serialized_end=250
+  _globals['_CITATION']._serialized_start=99
+  _globals['_CITATION']._serialized_end=175
+  _globals['_CHATRESPONSE']._serialized_start=177
+  _globals['_CHATRESPONSE']._serialized_end=272
+  _globals['_CHATSERVICE']._serialized_start=274
+  _globals['_CHATSERVICE']._serialized_end=374
 # @@protoc_insertion_point(module_scope)
