@@ -37,6 +37,18 @@ message ChatRequest {
   string model   = 3;            // Model identifier to use for this call
 }
 
+// -----------------------------------------------------------------------------
+// Citation message
+// -----------------------------------------------------------------------------
+// Sent by the server to display citation results for a user query.
+// Contains metadata about a retrieved chunk that was relevant to the user's input.
+//
+// Fields:
+//  - chunk_id:   Unique identifier for the matched chunk.
+//  - source:     Path or URI of the source document (e.g., "/docs/report.pdf").
+//  - snippet:    Text content of the matched chunk.
+//  - score:      Similarity score between the user query and this chunk.
+// -----------------------------------------------------------------------------
 message Citation {
   string chunk_id  = 1;
   string source    = 2;  // e.g. "/docs/report.pdf"
