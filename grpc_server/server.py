@@ -14,6 +14,7 @@ from config.settings import settings
 from proto.chat_pb2_grpc import add_ChatServiceServicer_to_server
 from grpc_server.servicer import ChatServiceServicerImpl
 
+
 class GRPCServer:
     """
     Wrapper around grpc.aio.server for SecuGenie.
@@ -26,10 +27,7 @@ class GRPCServer:
         # Create an aio server instance
         self.server = aio.server()
         # Register our ChatService implementation on this server
-        add_ChatServiceServicer_to_server(
-            ChatServiceServicerImpl(),
-            self.server
-        )
+        add_ChatServiceServicer_to_server(ChatServiceServicerImpl(), self.server)
 
     async def start(self) -> None:
         """

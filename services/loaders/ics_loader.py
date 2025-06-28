@@ -4,6 +4,7 @@ from langchain_core.document_loaders import BaseLoader
 import icalendar
 from langchain.schema import Document
 
+
 class ICSLoader(BaseLoader):
     def __init__(self, file_path: str):
         self.file_path = Path(file_path)

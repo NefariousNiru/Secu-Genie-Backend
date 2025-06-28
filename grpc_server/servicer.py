@@ -37,4 +37,3 @@ class ChatServiceServicerImpl(ChatServiceServicer):
                 yield ChatResponse(token="", final_text=final_text)
             else:
                 yield ChatResponse(token=token, final_text="")
-

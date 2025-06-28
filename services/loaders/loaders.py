@@ -7,7 +7,7 @@ from langchain_community.document_loaders import (
     JSONLoader,
     UnstructuredPowerPointLoader,
     UnstructuredExcelLoader,
-    UnstructuredEmailLoader
+    UnstructuredEmailLoader,
 )
 
 # Map file extensions to LangChain loader classes

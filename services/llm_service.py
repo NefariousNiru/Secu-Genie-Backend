@@ -4,10 +4,9 @@ import asyncio
 from typing import AsyncGenerator, List, Tuple
 from config.settings import settings
 
+
 async def stream_chat(
-    prompt: str,
-    history: List[str],
-    model_name: str
+    prompt: str, history: List[str], model_name: str
 ) -> AsyncGenerator[Tuple[str, str], None]:
     """
     Async generator that yields chat output as (token, final_text) tuples.
@@ -33,8 +32,8 @@ async def stream_chat(
 
     # Stream out one character at a time
     for char in dummy_response:
-        await asyncio.sleep(0.01)        # simulate async token generation delay
-        yield (char, "")                  # streaming token
+        await asyncio.sleep(0.01)  # simulate async token generation delay
+        yield (char, "")  # streaming token
 
     # Finally, send the complete response
     yield ("", dummy_response)

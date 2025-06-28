@@ -7,6 +7,7 @@ from models.chunk import Chunk
 from services.loaders import loaders
 from utils import chunk_util
 
+
 async def ingest_file(file: UploadFile) -> List[Chunk]:
     """
     Ingests an uploaded file, loads its content, splits into overlapping chunks,

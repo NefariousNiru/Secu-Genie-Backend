@@ -4,6 +4,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from config.settings import settings
 from models.chunk import Chunk
 
+
 def split_document(docs: list[Document], source: str, suffix: str) -> list[Chunk]:
     """
     Split a list of LangChain Document objects into our Pydantic Chunk models.
@@ -21,8 +22,7 @@ def split_document(docs: list[Document], source: str, suffix: str) -> list[Chunk
     """
     # Split documents into overlapping chunks
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=settings.chunk_size,
-        chunk_overlap=settings.chunk_overlap
+        chunk_size=settings.chunk_size, chunk_overlap=settings.chunk_overlap
     )
     split_docs = splitter.split_documents(docs)
 
@@ -35,7 +35,7 @@ def split_document(docs: list[Document], source: str, suffix: str) -> list[Chunk
             source=source,
             type=suffix.lstrip("."),
             index=index,
-            metadata=doc.metadata
+            metadata=doc.metadata,
         )
         chunks.append(chunk)
     return chunks

@@ -5,23 +5,26 @@ import warnings
 
 import proto.chat_pb2 as chat__pb2
 
-GRPC_GENERATED_VERSION = '1.73.0'
+GRPC_GENERATED_VERSION = "1.73.0"
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
 try:
     from grpc._utilities import first_version_is_lower
-    _version_not_supported = first_version_is_lower(GRPC_VERSION, GRPC_GENERATED_VERSION)
+
+    _version_not_supported = first_version_is_lower(
+        GRPC_VERSION, GRPC_GENERATED_VERSION
+    )
 except ImportError:
     _version_not_supported = True
 
 if _version_not_supported:
     raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},'
-        + f' but the generated code in chat_pb2_grpc.py depends on'
-        + f' grpcio>={GRPC_GENERATED_VERSION}.'
-        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
-        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
+        f"The grpc package installed is at version {GRPC_VERSION},"
+        + f" but the generated code in chat_pb2_grpc.py depends on"
+        + f" grpcio>={GRPC_GENERATED_VERSION}."
+        + f" Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}"
+        + f" or downgrade your generated code using grpcio-tools<={GRPC_VERSION}."
     )
 
 
@@ -46,10 +49,11 @@ class ChatServiceStub(object):
             channel: A grpc.Channel.
         """
         self.StreamChat = channel.unary_stream(
-                '/secugenie.proto.chat.ChatService/StreamChat',
-                request_serializer=chat__pb2.ChatRequest.SerializeToString,
-                response_deserializer=chat__pb2.ChatResponse.FromString,
-                _registered_method=True)
+            "/secugenie.proto.chat.ChatService/StreamChat",
+            request_serializer=chat__pb2.ChatRequest.SerializeToString,
+            response_deserializer=chat__pb2.ChatResponse.FromString,
+            _registered_method=True,
+        )
 
 
 class ChatServiceServicer(object):
@@ -72,25 +76,28 @@ class ChatServiceServicer(object):
         with a final response containing the full_text.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
 
 def add_ChatServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'StreamChat': grpc.unary_stream_rpc_method_handler(
-                    servicer.StreamChat,
-                    request_deserializer=chat__pb2.ChatRequest.FromString,
-                    response_serializer=chat__pb2.ChatResponse.SerializeToString,
-            ),
+        "StreamChat": grpc.unary_stream_rpc_method_handler(
+            servicer.StreamChat,
+            request_deserializer=chat__pb2.ChatRequest.FromString,
+            response_serializer=chat__pb2.ChatResponse.SerializeToString,
+        ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'secugenie.proto.chat.ChatService', rpc_method_handlers)
+        "secugenie.proto.chat.ChatService", rpc_method_handlers
+    )
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('secugenie.proto.chat.ChatService', rpc_method_handlers)
+    server.add_registered_method_handlers(
+        "secugenie.proto.chat.ChatService", rpc_method_handlers
+    )
 
 
- # This class is part of an EXPERIMENTAL API.
+# This class is part of an EXPERIMENTAL API.
 class ChatService(object):
     """-----------------------------------------------------------------------------
     ChatService definition
@@ -106,20 +113,22 @@ class ChatService(object):
     """
 
     @staticmethod
-    def StreamChat(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def StreamChat(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_stream(
             request,
             target,
-            '/secugenie.proto.chat.ChatService/StreamChat',
+            "/secugenie.proto.chat.ChatService/StreamChat",
             chat__pb2.ChatRequest.SerializeToString,
             chat__pb2.ChatResponse.FromString,
             options,
@@ -130,4 +139,5 @@ class ChatService(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
