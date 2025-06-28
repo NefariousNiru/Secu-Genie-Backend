@@ -10,6 +10,7 @@ from langchain.schema import Document
 from config.settings import settings
 from models.chunk import Chunk
 
+
 class VectorService:
     """
     Wrapper around LangChain's FAISS vectorstore for chunk embeddings.
@@ -26,11 +27,18 @@ class VectorService:
 
         # Use the provided embedder, or default to local all-MiniLM-L6-v2
         device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.embedder = embedder or HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2", model_kwargs={"device": device})
+        self.embedder = embedder or HuggingFaceEmbeddings(
+            model_name="sentence-transformers/all-MiniLM-L6-v2",
+            model_kwargs={"device": device},
+        )
 
         # Load existing index or start fresh
         if (self.index_path / "index.faiss").exists():
-            self.store = FAISS.load_local(str(self.index_path), self.embedder, allow_dangerous_deserialization=True)
+            self.store = FAISS.load_local(
+                str(self.index_path),
+                self.embedder,
+                allow_dangerous_deserialization=True,
+            )
         else:
             sample_vector = self.embedder.embed_query("test")
             dim = len(sample_vector)
@@ -59,7 +67,7 @@ class VectorService:
                     "type": chunk.type,
                     "index": chunk.index,
                     **chunk.metadata,
-                }
+                },
             )
             docs.append(doc)
 
@@ -85,7 +93,11 @@ class VectorService:
                 source=meta["source"],
                 type=meta["type"],
                 index=meta["index"],
-                metadata={k: v for k, v in meta.items() if k not in {"chunk_id", "source", "type", "index"}}
+                metadata={
+                    k: v
+                    for k, v in meta.items()
+                    if k not in {"chunk_id", "source", "type", "index"}
+                },
             )
             hits.append((chunk, score))
         return hits

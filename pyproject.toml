@@ -24,6 +24,7 @@ sentence-transformers = "^4.1.0"
 faiss-cpu = "^1.11.0"
 langchain-huggingface = "^0.3.0"
 pypdf = "^5.6.1"
+black = "^25.1.0"
 
 
 [build-system]
